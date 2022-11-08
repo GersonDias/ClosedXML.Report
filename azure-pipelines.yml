@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- develop
+  - develop
 
 pool:
   vmImage: ubuntu-latest
@@ -15,29 +15,15 @@ variables:
 steps:
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '-c Release'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-
-- task: DotNetCoreCLI@2
-  inputs:
     command: 'pack'
-    packagesToPack: 'ClosedXML.Report/*.csproj'
-    nobuild: true
+    packagesToPack: 'ClosedXML.Report/*.nupkg'
+    nobuild: false
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
 
 
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'closed_xml_package'
+    publishLocation: 'Container'
