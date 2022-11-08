@@ -20,6 +20,7 @@ steps:
     packagesToPack: '**/*.nuspec'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
+    verbosityPack: 'Normal'
 
 - task: PublishBuildArtifacts@1
   inputs:
