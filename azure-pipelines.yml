@@ -10,7 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  package-version: "0.2.4-QF"
+  - name: package-version 
+    value: "0.2.4-QF"
 
 steps:
 - task: DotNetCoreCLI@2
@@ -19,7 +20,6 @@ steps:
     packagesToPack: '**/*.nuspec'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
-
 
 - task: PublishBuildArtifacts@1
   inputs:
