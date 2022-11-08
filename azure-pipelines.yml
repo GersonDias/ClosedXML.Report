@@ -7,7 +7,7 @@ trigger:
 - develop
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   - name: package-version 
@@ -17,7 +17,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'ClosedXML.Report/*.csproj'
+    packagesToPack: 'ClosedXML.Report/ClosedXML.Report.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
     verbosityPack: 'Normal'
