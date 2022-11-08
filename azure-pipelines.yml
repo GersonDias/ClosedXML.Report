@@ -17,7 +17,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'ClosedXML.Report\ClosedXML.Report.csproj'
+    packagesToPack: 'ClosedXML.Report\*.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
     verbosityPack: 'Normal'
