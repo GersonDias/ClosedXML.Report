@@ -22,7 +22,7 @@ steps:
     versionEnvVar: 'package-version'
     verbosityPack: 'Normal'
     configuration: 'Release'
-    arguments: '-p:TargetFrameworks=netstandard2.0'
+    buildProperties: '-p:TargetFrameworks=netstandard2.0' 
 
 - task: PublishBuildArtifacts@1
   inputs:
