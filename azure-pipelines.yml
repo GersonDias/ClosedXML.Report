@@ -38,9 +38,10 @@ steps:
     ArtifactName: 'closed_xml_package'
     publishLocation: 'Container'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'd0cf10bb-6160-4908-a2f0-b638ebc3adf4'
+    allowPackageConflicts: true
