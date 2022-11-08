@@ -19,7 +19,7 @@ steps:
   inputs:
     command: 'build'
     projects: 'ClosedXML.Report/ClosedXML.Report.csproj'
-    configuration: Release
+    arguments: 'configuration=Release'
 
 - task: DotNetCoreCLI@2
   inputs:
