@@ -1,0 +1,46 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- develop
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  - name: package-version 
+    value: "0.2.4-QF"
+
+steps:
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'ClosedXML.Report/ClosedXML.Report.csproj'
+    arguments: '-c Release'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'ClosedXML.Report/ClosedXML.Report.csproj'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'package-version'
+    verbosityPack: 'Normal'
+    configuration: 'Release'
+    nobuild: true
+    # buildProperties: 'TargetFrameworks=netstandard2.0' 
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'closed_xml_package'
+    publishLocation: 'Container'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'd0cf10bb-6160-4908-a2f0-b638ebc3adf4'
