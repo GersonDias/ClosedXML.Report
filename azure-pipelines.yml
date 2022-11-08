@@ -17,10 +17,12 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.nuspec'
+    packagesToPack: 'ClosedXML.Report\ClosedXML.Report.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'package-version'
     verbosityPack: 'Normal'
+    configuration: 'Release'
+    arguments: '-p:TargetFrameworks=netstandard2.0'
 
 - task: PublishBuildArtifacts@1
   inputs:
