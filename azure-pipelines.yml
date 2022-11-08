@@ -14,6 +14,13 @@ variables:
     value: "0.2.4-QF"
 
 steps:
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'ClosedXML.Report/ClosedXML.Report.csproj'
+    configuration: Release
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
@@ -22,7 +29,8 @@ steps:
     versionEnvVar: 'package-version'
     verbosityPack: 'Normal'
     configuration: 'Release'
-    buildProperties: 'TargetFrameworks=netstandard2.0' 
+    nobuild: true
+    # buildProperties: 'TargetFrameworks=netstandard2.0' 
 
 - task: PublishBuildArtifacts@1
   inputs:
